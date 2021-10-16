@@ -78,6 +78,8 @@ int pangkat(void)
     printf("\t%i pangkat %i = %i\n", bilangan, pangkat, hasil);
     return(0);
 }
-/* Masalah yang diketahui:
+/*
+Isu yang diketahui:
  ~ Input yang bukan angka menyebabkan infinite loop perintah.
  ~ Program pemangkatan tidak terlalu berguna karena hanya dapat memproses hasil 9-digit.
+*/
