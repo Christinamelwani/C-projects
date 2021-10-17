@@ -137,3 +137,9 @@ int lihat_Status (void)
         return (0);
     }
 }
+
+//isu yang diketahui:
+// scanf menyebabkan infinite loop jika huruf dimasukkan
+// tidak ada validasi untuk nilai (nilai harus < 100)
+// Program tidak bisa menerima mata kuliah berbeda untuk mahasiswa yang sama
+// Layout kurang mantap
