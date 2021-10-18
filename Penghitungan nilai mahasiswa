@@ -53,7 +53,7 @@ int input_Data(void)
     while (n == 0)
     {
         char inp[20];
-        printf("\tMasukkan NIM(harus kurang dari sepuluh digit): ");
+        printf("\tMasukkan NIM (harus kurang dari sepuluh digit): ");
         scanf("\n");
         fgets(inp,20, stdin);
         n = atoi(inp);
