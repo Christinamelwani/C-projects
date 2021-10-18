@@ -21,11 +21,14 @@ struct mahasiswa tahunini[1000];
 int main()
 {
     int menu;
-    while (menu == 0)
+    while (menu != 4)
     {
-        printf("\nProgram penghitungan nilai mahasiswa:\nKetik nomor sesuai pilihan berikut:\n");
-        printf("1: Input data mahasiswa\n2: Input nilai mahasiswa\n3: Lihat status dan nilai mahasiswa\n4: Keluar\n\n");
-        scanf("\n%d", &menu);
+        char input[20];
+        printf("~~~~~~~PROGRAM PENGHITUNGAN NILAI MAHASISWA~~~~~~~\nKetik nomor sesuai pilihan berikut:\n");
+        printf("\t1: Input data mahasiswa\n\t2: Input nilai mahasiswa\n\t3: Lihat status dan nilai mahasiswa\n\t4: Keluar\n\t");
+        scanf("\n");
+        fgets(input, 20, stdin);
+        menu = atoi(input);
         if (menu == 1)
         {
             input_Data();
@@ -49,97 +52,153 @@ int input_Data(void)
 {
     while (n == 0)
     {
-        printf("Masukkan NIM: ");
-        scanf("%d", &n);
+        char inp[20];
+        printf("\tMasukkan NIM(harus kurang dari sepuluh digit): ");
+        scanf("\n");
+        fgets(inp,20, stdin);
+        n = atoi(inp);
     }
     n %= 1000;
         if (strlen(tahunini[n].nama) != 0)
         {
-            printf("Data mahasiswa ini sudah dimasukkan:\nNama: %s\nMata Kuliah: %s\n", tahunini[n].nama, tahunini[n].matkul);
+            printf("\tData mahasiswa ini sudah dimasukkan:\n\tNama: %s\n\tMata Kuliah: %s\n", tahunini[n].nama, tahunini[n].matkul);
             return(1);
         }
         else
         {
-            tahunini[n].nim = n-1;
-            printf("Masukkan nama mahasiswa: ");
-            scanf("\n%[^\n]s", &tahunini[n].nama);
-            printf("Masukkan mata kuliah: ");
-            scanf("\n%[^\n]s", &tahunini[n].matkul);
-            printf("Data berhasil dimasukkan.\n");
+            tahunini[n].nim = n;
+            printf("\tMasukkan nama mahasiswa: ");
+            scanf("\n");
+            fgets(tahunini[n].nama, 50, stdin);
+            strtok(tahunini[n].nama, "\n");
+            printf("\tMasukkan mata kuliah: ");
+            strtok(tahunini[n].matkul, "\n");
+            fgets(tahunini[n].matkul, 50, stdin);
+            printf("\n");
+            n = 0;
             return(0);
         }
 }
 int input_Nilai(void)
 {
-    printf("Masukkan NIM mahasiswa: ");
-    scanf("%d", &n);
+    printf("\tNIM: ");
+    char input[20];
+    char nilhad[20];
+    char niltug[20];
+    char nilquiz[20];
+    char nilfor[20];
+    char niluas[20];
+    scanf("\n");
+    fgets(input,20, stdin);
+    n = atoi(input);
     n %= 1000;
     if (strlen(tahunini[n].nama) == 0)
         {
-            printf("Masukkan data mahasiswa itu dulu!\n");
+            printf("\tMasukkan data mahasiswa itu dulu!\n");
             return(1);
         }
-    printf("Nama mahasiswa: %s\nMata kuliah: %s\nNilai Hadir: ", tahunini[n].nama, tahunini[n].matkul);
-    scanf("%d", &tahunini[n].hadir);
-    printf("Nilai Tugas: ");
-    scanf("%d", &tahunini[n].tugas);
-    printf("Nilai Quiz: ");
-    scanf("%d", &tahunini[n].quiz);
-    printf("Nilai keaktifan forum: ");
-    scanf("%d", &tahunini[n].forum);
-    printf("Nilai UAS: ");
-    scanf("%d", &tahunini[n].uas);
-    printf("Nilai %s berhasil dimasukkan.\n", tahunini[n].nama);
+    printf("\tNama mahasiswa: %s\n\tMata kuliah:%s\tNilai Hadir: ", tahunini[n].nama, tahunini[n].matkul);
+    scanf("\n");
+    fgets(nilhad,20, stdin);
+    tahunini[n].hadir = atoi(nilhad);
+    if (tahunini[n].hadir > 100)
+    {
+        printf("\tNilai tidak valid!\n");
+        return 1;
+    }
+    printf("\tNilai Tugas: ");
+    scanf("\n");
+    fgets(niltug,20, stdin);
+    tahunini[n].tugas = atoi(niltug);
+    if (tahunini[n].tugas > 100)
+    {
+        printf("\tNilai tidak valid!\n");
+        return 1;
+    }
+    printf("\tNilai Quiz: ");
+    scanf("\n");
+    fgets(nilquiz,20, stdin);
+    tahunini[n].quiz = atoi(nilquiz);
+    if (tahunini[n].quiz > 100)
+    {
+        printf("\tNilai tidak valid!\n");
+        return 1;
+    }
+    printf("\tNilai keaktifan forum: ");
+    scanf("\n");
+    fgets(nilfor,20, stdin);
+    tahunini[n].forum = atoi(nilfor);
+    if (tahunini[n].forum > 100)
+    {
+        printf("\tNilai tidak valid!\n");
+        return 1;
+    }
+    printf("\tNilai UAS: ");
+    scanf("\n");
+    fgets(niluas,20, stdin);
+    tahunini[n].uas = atoi(niluas);
+    if (tahunini[n].uas > 100)
+    {
+        printf("\tNilai tidak valid!\n");
+        return 1;
+    }
+    printf("\tNilai %s berhasil dimasukkan.\n\n", tahunini[n].nama);
     return (0);
 }
 int lihat_Status (void)
 {
-    printf("Masukkan NIM mahasiswa: ");
-    scanf("%d", &n);
+    char lanj;
+    char input[20];
+    printf("\tNIM: ");
+    scanf("\n");
+    fgets(input, 20, stdin);
+    n = atoi(input);
     n %= 1000;
     if (tahunini[n].hadir == 0 &&  tahunini[n].tugas == 0 &&  tahunini[n].quiz == 0 &&  tahunini[n].forum == 0 &&  tahunini[n].uas == 0)
     {
-        printf("Nilai mahasiswa belum dimasukkan.\n");
+        printf("\tNilai mahasiswa belum dimasukkan.\n");
     }
     else
     {
         tahunini[n].nilai = (tahunini[n].hadir * 0.1 + tahunini[n].tugas * 0.2 + tahunini[n].quiz * 0.1 + tahunini[n].forum * 0.1 + tahunini[n].uas * 0.5);
-        printf("Nama mahasiswa: %s\nMata kuliah: %s\nNilai: %.0f\n", tahunini[n].nama, tahunini[n].matkul, tahunini[n].nilai);
+        printf("\tNama mahasiswa: %s\n\tMata kuliah: %s", tahunini[n].nama, tahunini[n].matkul);
+        printf("\tNilai hadir: %d\n\tNilai tugas: %d\n\tNilai quiz: %d\n\tNilai forum: %d\n\tNilai UAS: %d\n\tNilai akhir: %.0f\n", tahunini[n].hadir, tahunini[n].tugas, tahunini[n].quiz, tahunini[n].forum, tahunini[n].uas, tahunini[n].nilai);
         if (tahunini[n].nilai <= 100 && tahunini[n].nilai >= 90)
         {
-            printf("%s mendapatkan grade A.\n", tahunini[n].nama);
-            printf("%s lulus kelas %s.\n", tahunini[n].nama, tahunini[n].matkul);
+            printf("\t%s mendapatkan grade A.\n", tahunini[n].nama);
+            printf("\t%s lulus kelas %s", tahunini[n].nama, tahunini[n].matkul);
         }
         else if (tahunini[n].nilai <= 89 && tahunini[n].nilai >= 80)
         {
-            printf("%s mendapatkan grade B.\n", tahunini[n].nama);
-            printf("%s lulus kelas %s.\n", tahunini[n].nama, tahunini[n].matkul);
+            printf("%\ts mendapatkan grade B.\n", tahunini[n].nama);
+            printf("\t%s lulus kelas %s", tahunini[n].nama, tahunini[n].matkul);
         }
         else if (tahunini[n].nilai <= 79 && tahunini[n].nilai >= 70)
         {
-            printf("%s mendapatkan grade C.\n", tahunini[n].nama);
-            printf("%s lulus kelas %s.\n", tahunini[n].nama, tahunini[n].matkul);
+            printf("\t%s mendapatkan grade C.\n", tahunini[n].nama);
+            printf("\t%s lulus kelas %s", tahunini[n].nama, tahunini[n].matkul);
         }
         else if (tahunini[n].nilai <= 69 && tahunini[n].nilai >= 60)
         {
             printf("%s mendapatkan grade D.\n", tahunini[n].nama);
-            printf("%s lulus kelas %s.\n", tahunini[n].nama, tahunini[n].matkul);
+            printf("%s lulus kelas %s", tahunini[n].nama, tahunini[n].matkul);
         }
         else if (tahunini[n].nilai <= 59 && tahunini[n].nilai >= 50)
         {
-            printf("%s mendapatkan grade E.\n", tahunini[n].nama);
-            printf("%s tidak lulus kelas %s.\n", tahunini[n].nama, tahunini[n].matkul);
+            printf("\t%s mendapatkan grade E.\n", tahunini[n].nama);
+            printf("\t%s tidak lulus kelas %s", tahunini[n].nama, tahunini[n].matkul);
         }
         else
         {
-            printf("%s tidak lulus kelas %s.\n", tahunini[n].nama, tahunini[n].matkul);
+            printf("\t%s tidak lulus kelas %s", tahunini[n].nama, tahunini[n].matkul);
         }
-        return (0);
+        printf("\tKetik tombol apa saja (selain enter) untuk lanjut.\n");
+        scanf("\n%c", &lanj);
+        if (lanj == 'y'|| lanj == 'Y')
+        {
+            printf("\n");
+            return (0);
+        }
     }
 }
-
-//isu yang diketahui:
-// scanf menyebabkan infinite loop jika huruf dimasukkan
-// tidak ada validasi untuk nilai (nilai harus < 100)
-// Program tidak bisa menerima mata kuliah berbeda untuk mahasiswa yang sama
-// Layout kurang mantap
+//tambahkan comment
