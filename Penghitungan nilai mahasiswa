@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-//prototype fungsi:
 int input_Data(void);
 int input_Nilai(void);
 int lihat_Status(void);
@@ -69,7 +68,6 @@ int input_Data(void)
         {
             tahunini[n].nim = n;
             printf("\tMasukkan nama mahasiswa: ");
-            scanf("\n");
             fgets(tahunini[n].nama, 50, stdin);
             strtok(tahunini[n].nama, "\n");
             printf("\tMasukkan mata kuliah: ");
@@ -89,7 +87,6 @@ int input_Nilai(void)
     char nilquiz[20];
     char nilfor[20];
     char niluas[20];
-    scanf("\n");
     fgets(input,20, stdin);
     n = atoi(input);
     n %= 1000;
@@ -102,35 +99,30 @@ int input_Nilai(void)
     while (tahunini[n].hadir == 0 || tahunini[n].hadir > 100)
     {
         printf("Nilai Hadir: ");
-        scanf("\n");
         fgets(nilhad,20, stdin);
         tahunini[n].hadir = atoi(nilhad);
     }
     while (tahunini[n].tugas == 0 || tahunini[n].tugas > 100)
     {
         printf("\tNilai Tugas: ");
-        scanf("\n");
         fgets(niltug,20, stdin);
         tahunini[n].tugas = atoi(niltug);
     }
     while (tahunini[n].quiz == 0 || tahunini[n].quiz > 100)
     {
     printf("\tNilai Quiz: ");
-    scanf("\n");
     fgets(nilquiz,20, stdin);
     tahunini[n].quiz = atoi(nilquiz);
     }
     while (tahunini[n].forum == 0 || tahunini[n].forum > 100)
     {
     printf("\tNilai keaktifan forum: ");
-    scanf("\n");
     fgets(nilfor,20, stdin);
     tahunini[n].forum = atoi(nilfor);
     }
     while (tahunini[n].uas == 0 || tahunini[n].uas > 100)
     {
     printf("\tNilai UAS: ");
-    scanf("\n");
     fgets(niluas,20, stdin);
     tahunini[n].uas = atoi(niluas);
     }
@@ -143,7 +135,6 @@ int lihat_Status (void)
     char lanj;
     char input[20];
     printf("\tMasukkan NIM: ");
-    scanf("\n");
     fgets(input, 20, stdin);
     n = atoi(input);
     n %= 1000;
@@ -190,4 +181,3 @@ int lihat_Status (void)
         printf("\n");
     }
 }
-//tambahkan comment
