@@ -1,10 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+//prototype fungsi:
 int input_Data(void);
 int input_Nilai(void);
 int lihat_Status(void);
-int n = 0;
 struct mahasiswa
 {
     char nama[40];
@@ -50,6 +50,7 @@ int main()
 
 int input_Data(void)
 {
+    int n = 0;
     while (n == 0)
     {
         char inp[20];
@@ -72,16 +73,16 @@ int input_Data(void)
             fgets(tahunini[n].nama, 50, stdin);
             strtok(tahunini[n].nama, "\n");
             printf("\tMasukkan mata kuliah: ");
-            strtok(tahunini[n].matkul, "\n");
             fgets(tahunini[n].matkul, 50, stdin);
+            strtok(tahunini[n].matkul, "\n");
             printf("\n");
-            n = 0;
             return(0);
         }
 }
 int input_Nilai(void)
 {
-    printf("\tNIM: ");
+    int n = 0;
+    printf("\tMasukkan NIM: ");
     char input[20];
     char nilhad[20];
     char niltug[20];
@@ -94,62 +95,54 @@ int input_Nilai(void)
     n %= 1000;
     if (strlen(tahunini[n].nama) == 0)
         {
-            printf("\tMasukkan data mahasiswa itu dulu!\n");
+            printf("\tMasukkan data mahasiswa itu dulu!\n\n");
             return(1);
         }
-    printf("\tNama mahasiswa: %s\n\tMata kuliah:%s\tNilai Hadir: ", tahunini[n].nama, tahunini[n].matkul);
-    scanf("\n");
-    fgets(nilhad,20, stdin);
-    tahunini[n].hadir = atoi(nilhad);
-    if (tahunini[n].hadir > 100)
+    printf("\tNama mahasiswa: %s\n\tMata kuliah: %s\n\t" , tahunini[n].nama, tahunini[n].matkul);
+    while (tahunini[n].hadir == 0 || tahunini[n].hadir > 100)
     {
-        printf("\tNilai tidak valid!\n");
-        return 1;
+        printf("Nilai Hadir: ");
+        scanf("\n");
+        fgets(nilhad,20, stdin);
+        tahunini[n].hadir = atoi(nilhad);
     }
-    printf("\tNilai Tugas: ");
-    scanf("\n");
-    fgets(niltug,20, stdin);
-    tahunini[n].tugas = atoi(niltug);
-    if (tahunini[n].tugas > 100)
+    while (tahunini[n].tugas == 0 || tahunini[n].tugas > 100)
     {
-        printf("\tNilai tidak valid!\n");
-        return 1;
+        printf("\tNilai Tugas: ");
+        scanf("\n");
+        fgets(niltug,20, stdin);
+        tahunini[n].tugas = atoi(niltug);
     }
+    while (tahunini[n].quiz == 0 || tahunini[n].quiz > 100)
+    {
     printf("\tNilai Quiz: ");
     scanf("\n");
     fgets(nilquiz,20, stdin);
     tahunini[n].quiz = atoi(nilquiz);
-    if (tahunini[n].quiz > 100)
-    {
-        printf("\tNilai tidak valid!\n");
-        return 1;
     }
+    while (tahunini[n].forum == 0 || tahunini[n].forum > 100)
+    {
     printf("\tNilai keaktifan forum: ");
     scanf("\n");
     fgets(nilfor,20, stdin);
     tahunini[n].forum = atoi(nilfor);
-    if (tahunini[n].forum > 100)
-    {
-        printf("\tNilai tidak valid!\n");
-        return 1;
     }
+    while (tahunini[n].uas == 0 || tahunini[n].uas > 100)
+    {
     printf("\tNilai UAS: ");
     scanf("\n");
     fgets(niluas,20, stdin);
     tahunini[n].uas = atoi(niluas);
-    if (tahunini[n].uas > 100)
-    {
-        printf("\tNilai tidak valid!\n");
-        return 1;
     }
     printf("\tNilai %s berhasil dimasukkan.\n\n", tahunini[n].nama);
     return (0);
 }
 int lihat_Status (void)
 {
+    int n = 0;
     char lanj;
     char input[20];
-    printf("\tNIM: ");
+    printf("\tMasukkan NIM: ");
     scanf("\n");
     fgets(input, 20, stdin);
     n = atoi(input);
@@ -161,44 +154,40 @@ int lihat_Status (void)
     else
     {
         tahunini[n].nilai = (tahunini[n].hadir * 0.1 + tahunini[n].tugas * 0.2 + tahunini[n].quiz * 0.1 + tahunini[n].forum * 0.1 + tahunini[n].uas * 0.5);
-        printf("\tNama mahasiswa: %s\n\tMata kuliah: %s", tahunini[n].nama, tahunini[n].matkul);
+        printf("\tNama mahasiswa: %s\n\tMata kuliah: %s\n", tahunini[n].nama, tahunini[n].matkul);
         printf("\tNilai hadir: %d\n\tNilai tugas: %d\n\tNilai quiz: %d\n\tNilai forum: %d\n\tNilai UAS: %d\n\tNilai akhir: %.0f\n", tahunini[n].hadir, tahunini[n].tugas, tahunini[n].quiz, tahunini[n].forum, tahunini[n].uas, tahunini[n].nilai);
         if (tahunini[n].nilai <= 100 && tahunini[n].nilai >= 90)
         {
             printf("\t%s mendapatkan grade A.\n", tahunini[n].nama);
-            printf("\t%s lulus kelas %s", tahunini[n].nama, tahunini[n].matkul);
+            printf("\t%s lulus kelas %s\n", tahunini[n].nama, tahunini[n].matkul);
         }
         else if (tahunini[n].nilai <= 89 && tahunini[n].nilai >= 80)
         {
-            printf("%\ts mendapatkan grade B.\n", tahunini[n].nama);
-            printf("\t%s lulus kelas %s", tahunini[n].nama, tahunini[n].matkul);
+            printf("\t%s mendapatkan grade B.\n", tahunini[n].nama);
+            printf("\t%s lulus kelas %s\n", tahunini[n].nama, tahunini[n].matkul);
         }
         else if (tahunini[n].nilai <= 79 && tahunini[n].nilai >= 70)
         {
             printf("\t%s mendapatkan grade C.\n", tahunini[n].nama);
-            printf("\t%s lulus kelas %s", tahunini[n].nama, tahunini[n].matkul);
+            printf("\t%s lulus kelas %s\n", tahunini[n].nama, tahunini[n].matkul);
         }
         else if (tahunini[n].nilai <= 69 && tahunini[n].nilai >= 60)
         {
-            printf("%s mendapatkan grade D.\n", tahunini[n].nama);
-            printf("%s lulus kelas %s", tahunini[n].nama, tahunini[n].matkul);
+            printf("\t%s mendapatkan grade D.\n", tahunini[n].nama);
+            printf("\t%s lulus kelas %s\n", tahunini[n].nama, tahunini[n].matkul);
         }
         else if (tahunini[n].nilai <= 59 && tahunini[n].nilai >= 50)
         {
             printf("\t%s mendapatkan grade E.\n", tahunini[n].nama);
-            printf("\t%s tidak lulus kelas %s", tahunini[n].nama, tahunini[n].matkul);
+            printf("\t%s tidak lulus kelas %s\n", tahunini[n].nama, tahunini[n].matkul);
         }
         else
         {
-            printf("\t%s tidak lulus kelas %s", tahunini[n].nama, tahunini[n].matkul);
+            printf("\t%s tidak lulus kelas %s\n", tahunini[n].nama, tahunini[n].matkul);
         }
-        printf("\tKetik tombol apa saja (selain enter) untuk lanjut.\n");
+        printf("\n\tKetik tombol apa saja lalu enter untuk lanjut.\n\t");
         scanf("\n%c", &lanj);
-        if (lanj == 'y'|| lanj == 'Y')
-        {
-            printf("\n");
-            return (0);
-        }
+        printf("\n");
     }
 }
 //tambahkan comment
