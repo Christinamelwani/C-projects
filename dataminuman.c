@@ -142,6 +142,7 @@ int input(void)
         printf(" %s tidak tersedia!\n\n", minuman.nama);
         input();
     }
+ return 1;
 }
 
 void view(void)
