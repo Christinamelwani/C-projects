@@ -1,7 +1,7 @@
 //BELUM LENGKAP: 
 //Hanya menulis data, tidak membacanya.
 //Kode belum rapi
-//Belum ada coment
+//Belum ada comment
 
 #include <stdio.h>
 #include <stdlib.h>
