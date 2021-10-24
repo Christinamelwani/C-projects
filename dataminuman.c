@@ -1,4 +1,7 @@
-//BELUM LENGKAP (Hanya menulis data)
+//BELUM LENGKAP: 
+//Hanya menulis data, tidak membacanya.
+//Kode belum rapi
+//Belum ada coment
 
 #include <stdio.h>
 #include <stdlib.h>
