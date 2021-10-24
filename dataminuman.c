@@ -1,6 +1,6 @@
 //BELUM LENGKAP: 
 //Hanya menulis data, tidak membacanya.
-//Kode belum rapi
+//Kode masih berantakan
 //Belum ada comment
 
 #include <stdio.h>
