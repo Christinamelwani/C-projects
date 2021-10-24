@@ -1,5 +1,6 @@
 //BELUM LENGKAP (Hanya menulis data)
-include <stdio.h>
+
+#include <stdio.h>
 #include <stdlib.h>
 
 int input(void);
