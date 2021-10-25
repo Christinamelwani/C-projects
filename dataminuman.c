@@ -15,7 +15,7 @@ struct dataminuman
 };
 
 struct dataminuman history[100];
-int index = 0;
+int ind = 0;
 
 int main(void)
 {
@@ -35,7 +35,7 @@ int main(void)
         fgets(temp, 100, dm);
         while (fgetc(dm)!= EOF)
         {
-            fscanf(dm,"%d %s %s %s %d", &index, history[i].nama, history[i].size, history[i].penyajian, &history[i].harga);
+            fscanf(dm,"%d %s %s %s %d", &ind, history[i].nama, history[i].size, history[i].penyajian, &history[i].harga);
             i++;
             fgets(buffer, 1 , dm);
         }
@@ -129,11 +129,11 @@ int input(void)
                 scanf("\n%c", &val);
                 if (val == 'y' || val == 'Y')
                 {
-                    strcpy(history[index].nama, minuman.nama);
-                    strcpy(history[index].penyajian, minuman.penyajian);
-                    strcpy(history[index].size, minuman.size);
-                    history[index].harga = minuman.harga;
-                    index++;
+                    strcpy(history[ind].nama, minuman.nama);
+                    strcpy(history[ind].penyajian, minuman.penyajian);
+                    strcpy(history[ind].size, minuman.size);
+                    history[ind].harga = minuman.harga;
+                    ind++;
                     return 0;
                 }
                 else if (val == 'n' || val == 'N')
@@ -207,7 +207,7 @@ int del(void)
     strcpy(history[n-1].size, "\0");
     strcpy(history[n-1].penyajian, "\0");
     history[n-1].harga = 0;
-    index--;
+    ind--;
     i = 0;
     printf("\t%-10s%-20s%-20s%-20s%-10s\n", "No", "Nama Pesanan", "Size", "Penyajian", "Harga");
     while (history[i].harga != 0)
@@ -217,5 +217,3 @@ int del(void)
     }
     return 0;
 }
-
-//belum rapi dan perlu comment
