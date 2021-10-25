@@ -1,8 +1,3 @@
-//BELUM LENGKAP: 
-//Hanya menulis data, tidak membacanya.
-//Kode masih berantakan
-//Belum ada comment
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -24,17 +19,36 @@ int index = 0;
 int main(void)
 {
     FILE * dm;
-    dm = fopen("dataminuman.txt", "w");
+    dm = fopen("dataminuman.txt", "r+");
     if (dm == NULL)
     {
         printf("dataminuman.txt tidak dapat ditemukan!\n");
         return 0;
     }
+    char temp[100];
+    char buffer[20];
     int menu = 0;
+    int i = 0;
+    if (fgetc(dm)!= EOF)
+    {
+        fgets(temp, 100, dm);
+        while (fgetc(dm)!= EOF)
+        {
+            fscanf(dm,"%d %s %s %s %d", &index, history[i].nama, history[i].size, history[i].penyajian, &history[i].harga);
+            i++;
+            fgets(buffer, 1 , dm);
+        }
+        printf("\t%s", temp);
+        i = 0;
+        while (history[i].harga != 0)
+        {
+            printf("\t%-10d%-20s%-20s%-20s%-10d\n", i + 1, history[i].nama, history[i].size, history[i].penyajian, history[i].harga);
+            i++;
+        }
+    }
     while (menu != 4)
     {
-        char buffer[20];
-        printf(" a. Input data (tekan tombol 1)\n b. View history (tekan tombol 2)\n c. Delete history (tekan tombol 3)\n d. Exit (tekan tombol 4)\n ");
+        printf("\n a. Input data (tekan tombol 1)\n b. View history (tekan tombol 2)\n c. Delete history (tekan tombol 3)\n d. Exit (tekan tombol 4)\n ");
         scanf("\n");
         fgets(buffer, 20, stdin);
         menu = atoi (buffer);
@@ -57,10 +71,12 @@ int main(void)
            };
         }
     }
-    int i = 0;
+    dm = freopen("dataminuman.txt", "w", stdout);
+    fprintf(dm,"\t%-10s%-20s%-20s%-20s%-10s\n", "No", "Nama Pesanan", "Size", "Penyajian", "Harga");
+    i = 0;
     while (history[i].harga != 0)
     {
-        fprintf(dm,"\t%d\t%-10s\t%-10s\t%-10s\t%d\n", i + 1, history[i].nama, history[i].size, history[i].penyajian, history[i].harga);
+        fprintf(dm, "\t%-10d%-20s%-20s%-20s%-10d\n", i + 1, history[i].nama, history[i].size, history[i].penyajian, history[i].harga);
         i++;
     }
     fclose(dm);
@@ -108,7 +124,7 @@ int input(void)
                  for (;;)
                 {
                 val = 0;
-                printf(" Pencet tombol y untuk konformasi\n Pencet tombol n untuk batal\n ");
+                printf(" Pencet tombol y untuk mengonfirmasi\n Pencet tombol n untuk batal\n ");
                 scanf("\n%c", &val);
                 if (val == 'y' || val == 'Y')
                 {
@@ -142,35 +158,34 @@ int input(void)
         printf(" %s tidak tersedia!\n\n", minuman.nama);
         input();
     }
- return 1;
+    return 1;
 }
-
 void view(void)
 {
     int i = 0;
-    printf("\tNo\tNama Pesanan\tSize\t\tPenyajian\tHarga\n");
+    printf("\t%-10s%-20s%-20s%-20s%-10s\n", "No", "Nama Pesanan", "Size", "Penyajian", "Harga");
     while (history[i].harga != 0)
     {
-        printf("\t%d\t%-10s\t%-10s\t%-10s\t%d\n", i + 1, history[i].nama, history[i].size, history[i].penyajian, history[i].harga);
+        printf("\t%-10d%-20s%-20s%-20s%-10d\n", i + 1, history[i].nama, history[i].size, history[i].penyajian, history[i].harga);
         i++;
     }
     getchar();
 }
-
 int del(void)
 {
     int i = 0;
     int s = 0;
     int n;
-    printf("\tNo\tNama Pesanan\tSize\t\tPenyajian\tHarga\n");
+    printf("\t%-10s%-20s%-20s%-20s%-10s\n", "No", "Nama Pesanan", "Size", "Penyajian", "Harga");
     while (history[i].harga != 0)
     {
-        printf("\t%d\t%-10s\t%-10s\t%-10s\t%d\n", i + 1, history[i].nama, history[i].size, history[i].penyajian, history[i].harga);
+        printf("\t%-10d%-20s%-20s%-20s%-10d\n", i + 1, history[i].nama, history[i].size, history[i].penyajian, history[i].harga);
         i++;
     }
+
     do
     {
-        printf("\nMasukkan nomor yang ingin dihapus: ");
+        printf("\n Masukkan nomor yang ingin dihapus: ");
         scanf("%d", &s);
     }while (history[s - 1].harga == 0);
     s--;
@@ -189,12 +204,15 @@ int del(void)
     strcpy(history[n-1].size, "\0");
     strcpy(history[n-1].penyajian, "\0");
     history[n-1].harga = 0;
+    index--;
     i = 0;
-    printf("\n\tNo\tNama Pesanan\tSize\t\tPenyajian\tHarga\n");
+    printf("\t%-10s%-20s%-20s%-20s%-10s\n", "No", "Nama Pesanan", "Size", "Penyajian", "Harga");
     while (history[i].harga != 0)
     {
-        printf("\t%d\t%-10s\t%-10s\t%-10s\t%d\n", i + 1, history[i].nama, history[i].size, history[i].penyajian, history[i].harga);
+        printf("\t%-10d%-20s%-20s%-20s%-10d\n", i + 1, history[i].nama, history[i].size, history[i].penyajian, history[i].harga);
         i++;
     }
     return 0;
 }
+
+//belum rapi dan perlu comment
