@@ -23,7 +23,7 @@ int main(void)
     dm = fopen("dataminuman.txt", "r");
     if (dm == NULL)
     {
-        printf("Belum ada history penjualan minuman\n");
+        printf(" Belum ada history penjualan minuman!\n");
         dm = fopen("dataminuman.txt", "w+");
     }
     char temp[100];
@@ -47,6 +47,10 @@ int main(void)
             i++;
         }
     }
+    else
+    {
+        printf(" Belum ada history penjualan minuman!\n");
+    }
     while (menu != 4)
     {
         printf("\n a. Input data (tekan tombol 1)\n b. View history (tekan tombol 2)\n c. Delete history (tekan tombol 3)\n d. Exit (tekan tombol 4)\n ");
@@ -68,12 +72,15 @@ int main(void)
         {
             if (del() == 0)
            {
-               printf(" Data succesfully deleted...\n\n");
+               printf(" Data succesfully deleted...\n");
            };
         }
     }
     dm = freopen("dataminuman.txt", "w", stdout);
-    fprintf(dm,"\t%-10s%-20s%-20s%-20s%-10s\n", "No", "Nama Pesanan", "Size", "Penyajian", "Harga");
+    if (history[i].harga != 0)
+    {
+        fprintf(dm,"\t%-10s%-20s%-20s%-20s%-10s\n", "No", "Nama Pesanan", "Size", "Penyajian", "Harga");
+    }
     i = 0;
     while (history[i].harga != 0)
     {
