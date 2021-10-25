@@ -44,6 +44,8 @@ int main(void)
                 fgets(buffer, 1, dm);
             }
 
+
+
             //Menampilkan header dan isi file:
             printf("\t%s", temp);
             i = 0;
@@ -70,7 +72,7 @@ int main(void)
         {
            if (input() == 0)
            {
-               printf(" Input data berhasil\n");
+               printf(" Input data berhasil.\n");
            };
         }
         if (menu == 2)
@@ -208,6 +210,7 @@ void view(void)
         printf("\t%-10d%-20s%-20s%-20s%-10d\n", i + 1, history[i].nama, history[i].size, history[i].penyajian, history[i].harga);
         i++;
     }
+    printf("\n Tekan enter untuk kembali ke menu utama.\n ");
     getchar();
 }
 
@@ -229,7 +232,7 @@ int del(void)
     do
     {
         //Meminta inputan index:
-        printf("\n Masukkan nomor yang ingin dihapus (pencet 0 untuk batal): ");
+        printf("\n Masukkan nomor data yang ingin dihapus (tekan tombol 0 untuk batal): ");
         fgets(buffer, 10, stdin);
         s = atoi(buffer);
         if (s == 0)
@@ -262,6 +265,7 @@ int del(void)
     ind--;
 
     //Menampilkan data history lagi:
+    printf("\n");
     i = 0;
     printf("\t%-10s%-20s%-20s%-20s%-10s\n", "No", "Nama Pesanan", "Size", "Penyajian", "Harga");
     while (history[i].harga != 0)
@@ -269,5 +273,6 @@ int del(void)
         printf("\t%-10d%-20s%-20s%-20s%-10d\n", i + 1, history[i].nama, history[i].size, history[i].penyajian, history[i].harga);
         i++;
     }
+    printf("\n");
     return 0;
 }
