@@ -20,11 +20,11 @@ int index = 0;
 int main(void)
 {
     FILE * dm;
-    dm = fopen("dataminuman.txt", "r+");
+    dm = fopen("dataminuman.txt", "r");
     if (dm == NULL)
     {
-        printf("dataminuman.txt tidak dapat ditemukan!\n");
-        return 0;
+        printf("Belum ada history penjualan minuman\n");
+        dm = fopen("dataminuman.txt", "w+");
     }
     char temp[100];
     char buffer[20];
