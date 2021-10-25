@@ -67,7 +67,7 @@ int main(void)
         {
             if (del() == 0)
            {
-               printf("Data succesfully deleted...\n\n");
+               printf(" Data succesfully deleted...\n\n");
            };
         }
     }
@@ -160,6 +160,7 @@ int input(void)
     }
     return 1;
 }
+
 void view(void)
 {
     int i = 0;
@@ -171,6 +172,7 @@ void view(void)
     }
     getchar();
 }
+
 int del(void)
 {
     int i = 0;
