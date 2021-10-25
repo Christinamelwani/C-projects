@@ -183,6 +183,7 @@ void view(void)
 
 int del(void)
 {
+    char buffer[10];
     int i = 0;
     int s = 0;
     int n;
@@ -195,8 +196,13 @@ int del(void)
 
     do
     {
-        printf("\n Masukkan nomor yang ingin dihapus: ");
-        scanf("%d", &s);
+        printf("\n Masukkan nomor yang ingin dihapus (pencet 0 untuk batal): ");
+        fgets(buffer, 10, stdin);
+        s = atoi(buffer);
+        if (s == 0)
+        {
+            return 1;
+        }
     }while (history[s - 1].harga == 0);
     s--;
     strcpy(history[s].nama, "\0");
