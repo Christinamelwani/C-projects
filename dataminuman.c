@@ -13,6 +13,7 @@ struct dataminuman
         char penyajian[10];
         int harga;
 };
+
 struct dataminuman history[100];
 int index = 0;
 
