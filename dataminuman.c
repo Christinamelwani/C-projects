@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
 
 int input(void);
 void view(void);
@@ -8,10 +9,10 @@ int del(void);
 
 struct dataminuman
 {
-        char nama[10];
-        char size[10];
-        char penyajian[10];
-        int harga;
+    char nama[10];
+    char size[10];
+    char penyajian[10];
+    int harga;
 };
 
 struct dataminuman history[100];
@@ -19,32 +20,34 @@ int ind = 0;
 
 int main(void)
 {
-    int menu = 0;
+    int navigasi = 0;
     int i = 0;
     char temp[100];
     char buffer[20];
 
-    //Membaca file “dataminuman.txt”:
-    FILE * dm;
+    //Membuka file “dataminuman.txt” dalam mode 'read':
+    FILE *dm;
     dm = fopen("dataminuman.txt", "r");
+
+    //Membuat file “dataminuman.txt” jika belum ada.
     if (dm == NULL)
     {
         printf(" Belum ada history penjualan minuman!");
-        dm = fopen("dataminuman.txt", "w+");  //membuat file “dataminuman.txt” jika belum ada.
+        dm = fopen("dataminuman.txt", "w+");
     }
+      
+    //Membaca header dan isi “dataminuman.txt”
     else
     {
-        if (fgetc(dm)!= EOF) //check jika file kosong.
+        if (fgetc(dm) != EOF)
         {
-            fgets(temp, 100, dm);  //membaca header.
-            while (fgetc(dm)!= EOF)  //membaca isi
+            fgets(temp, 100, dm);
+            while (fgetc(dm) != EOF)
             {
-                fscanf(dm,"%d %s %s %s %d", &ind, history[i].nama, history[i].size, history[i].penyajian, &history[i].harga);
+                fscanf(dm, "%d %s %s %s %d", &ind, history[i].nama, history[i].size, history[i].penyajian, &history[i].harga);
                 i++;
                 fgets(buffer, 1, dm);
             }
-
-
 
             //Menampilkan header dan isi file:
             printf("\t%s", temp);
@@ -55,60 +58,65 @@ int main(void)
                 i++;
             }
         }
+
+        //Jika file kosong:
         else
         {
             printf(" Belum ada history penjualan minuman!");
         }
     }
 
-    //Menampilkan menu:
-    while (menu != 4)
+    //Menampilkan menu dan menerima pilihan user:
+    while (navigasi != 4)
     {
         printf("\n a. Input data (tekan tombol 1)\n b. View history (tekan tombol 2)\n c. Delete history (tekan tombol 3)\n d. Exit (tekan tombol 4)\n ");
         scanf("\n");
         fgets(buffer, 20, stdin);
-        menu = atoi (buffer);
-        if (menu == 1)
+        navigasi = atoi(buffer);
+        if (navigasi == 1)
         {
-           if (input() == 0)
-           {
-               printf(" Input data berhasil.\n");
-           };
+            if (input() == 0)
+            {
+                printf(" Input data berhasil.\n");
+            };
         }
-        if (menu == 2)
+        if (navigasi == 2)
         {
             view();
         }
-        if (menu == 3)
+        if (navigasi == 3)
         {
             if (del() == 0)
-           {
-               printf(" Data succesfully deleted...\n");
-           };
+            {
+                printf(" Data succesfully deleted...\n");
+            };
         }
     }
 
-    //Menulis data history ke dalam file:
+    //Menulis data history ke dalam file (HANYA JIKA 4 DITEKAN):
     dm = freopen("dataminuman.txt", "w", stdout);
-            //Menulis header:
+    //Menulis header:
     if (history[0].harga != 0)
     {
-        fprintf(dm,"\t%-10s%-20s%-20s%-20s%-10s\n", "No", "Nama Pesanan", "Size", "Penyajian", "Harga");
+        fprintf(dm, "\t%-10s%-20s%-20s%-20s%-10s\n", "No", "Nama Pesanan", "Size", "Penyajian", "Harga");
     }
-           //Menulis isi:
+    //Menulis isi:
     i = 0;
     while (history[i].harga != 0)
     {
         fprintf(dm, "\t%-10d%-20s%-20s%-20s%-10d\n", i + 1, history[i].nama, history[i].size, history[i].penyajian, history[i].harga);
         i++;
     }
+
+    //Menutup file:
     fclose(dm);
     return 0;
 }
 
+
 int input(void)
 {
-    //Deklarasi struct temp:
+    //Deklarasi struct temp untuk menyimpan data pesanan sebelum konfirmasi user:
     typedef struct m
     {
         char nama[10];
@@ -122,74 +130,21 @@ int input(void)
     printf(" Masukkan nama minuman (Kopi, Teh, Coklat, Soda): ");
     scanf("\n");
     fgets(minuman.nama, 10, stdin);
-    strtok(minuman.nama,"\n");
+    strtok(minuman.nama, "\n");
 
     //Validasi nama minuman:
-    if (   strcmp(minuman.nama, "kopi") == 0 || strcmp(minuman.nama, "Kopi") == 0
-        || strcmp(minuman.nama, "teh") == 0 || strcmp(minuman.nama, "Teh") == 0
-        || strcmp(minuman.nama, "coklat") == 0 || strcmp(minuman.nama, "Coklat") == 0
-        || strcmp(minuman.nama, "soda") == 0 || strcmp(minuman.nama, "Soda") == 0)
+    for (int i = 0; i < 10; i++)
     {
-        //Input size minuman:
-        printf(" Masukkan size minuman (Small, Medium, Largest): ");
-        scanf("\n");
-        fgets(minuman.size, 10, stdin);
-        strtok(minuman.size,"\n");
-
-        //Validasi size minuman:
-        if (        strcmp(minuman.size, "largest") == 0 || strcmp(minuman.size, "Largest") == 0
-                ||  strcmp(minuman.size, "small") == 0 || strcmp(minuman.size, "Small") == 0
-                ||  strcmp(minuman.size, "medium") == 0 || strcmp(minuman.size, "Medium") == 0)
+        minuman.nama[i] = toupper(minuman.nama[i]);
+    }
+    if (    strcmp(minuman.nama, "KOPI") == 0
+         || strcmp(minuman.nama, "TEH") == 0
+         || strcmp(minuman.nama, "COKLAT") == 0
+         || strcmp(minuman.nama, "SODA") == 0)
+    {
+        for (int i = 1; i < 10; i++)
         {
-            //Input penyajian minuman:
-            printf(" Masukkan penyajian minuman (Panas, Hangat, Dingin): ");
-            scanf("\n");
-            fgets(minuman.penyajian, 10, stdin);
-            strtok(minuman.penyajian,"\n");
-
-            //Validasi penyajian minuman:
-            if (        strcmp(minuman.penyajian, "panas") == 0 ||  strcmp(minuman.penyajian, "Panas") == 0
-                    ||  strcmp(minuman.penyajian, "hangat") == 0 || strcmp(minuman.penyajian, "Hangat") == 0
-                    ||  strcmp(minuman.penyajian, "dingin") == 0 || strcmp(minuman.penyajian, "Dingin") == 0)
-            {
-                //Penghitungan harga minuman:
-                minuman.harga = (strlen(minuman.size) * strlen (minuman.penyajian) * strlen(minuman.nama) * 100);
-
-                //Konfirmasi:
-                printf(" Detail pembelian:\n \tNama Minuman: %s\n \tSize: %s\n \tPenyajian: %s\n \tHarga: %i\n", minuman.nama, minuman.size, minuman.penyajian, minuman.harga);
-                 char val;
-                 for (;;)
-                {
-                val = 0;
-                printf(" Pencet tombol y untuk mengonfirmasi\n Pencet tombol n untuk batal\n ");
-                scanf("\n%c", &val);
-
-                //Data ditambahkan ke data history:
-                if (val == 'y' || val == 'Y')
-                {
-                    strcpy(history[ind].nama, minuman.nama);
-                    strcpy(history[ind].penyajian, minuman.penyajian);
-                    strcpy(history[ind].size, minuman.size);
-                    history[ind].harga = minuman.harga;
-                    ind++;
-                    return 0;
-                }
-                else if (val == 'n' || val == 'N')
-                    return 1;
-                else
-                    continue;
-                }
-            }
-            else
-            {
-                printf(" Penyajian %s tidak tersedia!\n\n", minuman.penyajian);
-                input();
-            }
-        }
-        else
-        {
-            printf(" Ukuran %s tidak tersedia!\n\n", minuman.size);
-            input();
+            minuman.nama[i] = tolower(minuman.nama[i]);
         }
     }
     else
@@ -197,7 +152,90 @@ int input(void)
         printf(" %s tidak tersedia!\n\n", minuman.nama);
         input();
     }
-    return 1;
+
+    //Input size minuman:
+    printf(" Masukkan size minuman (Small, Medium, Largest): ");
+    scanf("\n");
+    fgets(minuman.size, 10, stdin);
+    strtok(minuman.size, "\n");
+
+    //Validasi size minuman:
+    for (int i = 0; i < 10; i++)
+    {
+        minuman.size[i] = toupper(minuman.size[i]);
+    }
+    if (    strcmp(minuman.size, "LARGEST") == 0
+        ||  strcmp(minuman.size, "SMALL") == 0
+        ||  strcmp(minuman.size, "MEDIUM") == 0)
+    {
+        for (int i = 1; i < 10; i++)
+        {
+            minuman.size[i] = tolower(minuman.size[i]);
+        }
+    }
+    else
+    {
+        printf(" Ukuran %s tidak tersedia!\n\n", minuman.size);
+        input();
+    }
+
+    //Input penyajian minuman:
+    printf(" Masukkan penyajian minuman (Panas, Hangat, Dingin): ");
+    scanf("\n");
+    fgets(minuman.penyajian, 10, stdin);
+    strtok(minuman.penyajian, "\n");
+
+    //Validasi penyajian minuman:
+    for (int i = 0; i < 10; i++)
+    {
+        minuman.penyajian[i] = toupper(minuman.penyajian[i]);
+    }
+    if (    strcmp(minuman.penyajian, "PANAS") == 0
+        ||  strcmp(minuman.penyajian, "DINGIN") == 0
+        ||  strcmp(minuman.penyajian, "HANGAT") == 0  )
+    {
+        for (int i = 1; i < 10; i++)
+        {
+            minuman.penyajian[i] = tolower(minuman.penyajian[i]);
+        }
+    }
+    else
+    {
+        printf(" Penyajian %s tidak tersedia!\n\n", minuman.penyajian);
+        input();
+    }
+    //Penghitungan harga minuman:
+    minuman.harga = (strlen(minuman.size) * strlen(minuman.penyajian) * strlen(minuman.nama) * 100);
+
+    //Konfirmasi:
+    printf(" Detail pembelian:\n \tNama Minuman: %s\n \tSize: %s\n \tPenyajian: %s\n \tHarga: %i\n", 
+             minuman.nama, minuman.size, minuman.penyajian, minuman.harga);
+    char val;
+    for (;;)
+    {
+        val = 0;
+        printf(" Pencet tombol y untuk mengonfirmasi\n Pencet tombol n untuk batal\n ");
+        scanf(" %c", &val);
+
+        //Data ditambahkan ke data history:
+        if (val == 'y' || val == 'Y')
+        {
+            strcpy(history[ind].nama, minuman.nama);
+            strcpy(history[ind].penyajian, minuman.penyajian);
+            strcpy(history[ind].size, minuman.size);
+            history[ind].harga = minuman.harga;
+            ind++;
+            return 0;
+        }
+        else if (val == 'n' || val == 'N')
+        {
+            return 1;
+        }
+        else
+        {
+            continue;
+        }
+    }
 }
 
 //Menampilkan data history penjualan:
@@ -239,7 +277,9 @@ int del(void)
         {
             return 1;
         }
-    }while (history[s - 1].harga == 0); //Validasi input minimal 1 (jika ada  dan maksimal sebanyak jumlah data.
+    }
+    //Validasi input minimal 1 (jika ada data history)  dan maksimal sebanyak jumlah data:
+    while (history[s - 1].harga == 0);
 
     //Mengapus data sesuai dengan index yang diinput(-1 karena array mulai dari 0)
     s--;
@@ -256,10 +296,10 @@ int del(void)
         strcpy(history[n - 1].penyajian, history[n].penyajian);
         history[n - 1].harga = history[n].harga;
     }
-    strcpy(history[n-1].nama, "\0");
-    strcpy(history[n-1].size, "\0");
-    strcpy(history[n-1].penyajian, "\0");
-    history[n-1].harga = 0;
+    strcpy(history[n - 1].nama, "\0");
+    strcpy(history[n - 1].size, "\0");
+    strcpy(history[n - 1].penyajian, "\0");
+    history[n - 1].harga = 0;
 
     //mengurangi index
     ind--;
