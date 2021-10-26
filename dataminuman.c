@@ -95,12 +95,10 @@ int main(void)
 
     //Menulis data history ke dalam file (HANYA JIKA 4 DITEKAN):
     dm = freopen("dataminuman.txt", "w", stdout);
-    //Menulis header:
     if (history[0].harga != 0)
     {
         fprintf(dm, "\t%-10s%-20s%-20s%-20s%-10s\n", "No", "Nama Pesanan", "Size", "Penyajian", "Harga");
     }
-    //Menulis isi:
     i = 0;
     while (history[i].harga != 0)
     {
@@ -204,6 +202,7 @@ int input(void)
         printf(" Penyajian %s tidak tersedia!\n\n", minuman.penyajian);
         input();
     }
+
     //Penghitungan harga minuman:
     minuman.harga = (strlen(minuman.size) * strlen(minuman.penyajian) * strlen(minuman.nama) * 100);
 
@@ -277,8 +276,7 @@ int del(void)
         {
             return 1;
         }
-    }
-    //Validasi input minimal 1 (jika ada data history)  dan maksimal sebanyak jumlah data:
+    } //Validasi input minimal 1 (jika ada data history)  dan maksimal sebanyak jumlah data:
     while (history[s - 1].harga == 0);
 
     //Mengapus data sesuai dengan index yang diinput(-1 karena array mulai dari 0)
