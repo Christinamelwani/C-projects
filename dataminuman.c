@@ -35,7 +35,7 @@ int main(void)
         printf(" Belum ada history penjualan minuman!");
         dm = fopen("dataminuman.txt", "w+");
     }
-      
+
     //Membaca header dan isi “dataminuman.txt”
     else
     {
@@ -123,91 +123,102 @@ int input(void)
         int harga;
     } m;
     m minuman;
-
-    //Input nama minuman:
-    printf(" Masukkan nama minuman (Kopi, Teh, Coklat, Soda): ");
-    scanf("\n");
-    fgets(minuman.nama, 10, stdin);
-    strtok(minuman.nama, "\n");
-
-    //Validasi nama minuman:
-    for (int i = 0; i < 10; i++)
+    int check = 0;
+    
+    while (check == 0)
     {
-        minuman.nama[i] = toupper(minuman.nama[i]);
-    }
-    if (    strcmp(minuman.nama, "KOPI") == 0
-         || strcmp(minuman.nama, "TEH") == 0
-         || strcmp(minuman.nama, "COKLAT") == 0
-         || strcmp(minuman.nama, "SODA") == 0)
-    {
-        for (int i = 1; i < 10; i++)
+        //Input nama minuman:
+        printf(" Masukkan nama minuman (Kopi, Teh, Coklat, Soda): ");
+        scanf("\n");
+        fgets(minuman.nama, 10, stdin);
+        strtok(minuman.nama, "\n");
+        for (int i = 0; i < 10; i++)
         {
-            minuman.nama[i] = tolower(minuman.nama[i]);
+            minuman.nama[i] = toupper(minuman.nama[i]);
+        }
+
+        //Validasi nama minuman:
+        if (    strcmp(minuman.nama, "KOPI") == 0
+                || strcmp(minuman.nama, "TEH") == 0
+                || strcmp(minuman.nama, "COKLAT") == 0
+                || strcmp(minuman.nama, "SODA") == 0)
+        {
+            for (int i = 1; i < 10; i++)
+            {
+                minuman.nama[i] = tolower(minuman.nama[i]);
+                check = 1;
+            }
+        }
+        else
+        {
+            printf(" %s tidak tersedia!\n\n", minuman.nama);
         }
     }
-    else
-    {
-        printf(" %s tidak tersedia!\n\n", minuman.nama);
-        input();
-    }
+    check = 0;
 
-    //Input size minuman:
-    printf(" Masukkan size minuman (Small, Medium, Largest): ");
-    scanf("\n");
-    fgets(minuman.size, 10, stdin);
-    strtok(minuman.size, "\n");
-
-    //Validasi size minuman:
-    for (int i = 0; i < 10; i++)
+    while (check == 0)
     {
-        minuman.size[i] = toupper(minuman.size[i]);
-    }
-    if (    strcmp(minuman.size, "LARGEST") == 0
-        ||  strcmp(minuman.size, "SMALL") == 0
-        ||  strcmp(minuman.size, "MEDIUM") == 0)
-    {
-        for (int i = 1; i < 10; i++)
+        //Input size minuman:
+        printf(" Masukkan size minuman (Small, Medium, Largest): ");
+        scanf("\n");
+        fgets(minuman.size, 10, stdin);
+        strtok(minuman.size, "\n");
+        for (int i = 0; i < 10; i++)
         {
-            minuman.size[i] = tolower(minuman.size[i]);
+            minuman.size[i] = toupper(minuman.size[i]);
+        }
+        
+        //Validasi size minuman:
+        if (    strcmp(minuman.size, "LARGEST") == 0
+                ||  strcmp(minuman.size, "SMALL") == 0
+                ||  strcmp(minuman.size, "MEDIUM") == 0)
+        {
+            for (int i = 1; i < 10; i++)
+            {
+                minuman.size[i] = tolower(minuman.size[i]);
+                check = 1;
+            }
+        }
+        else
+        {
+            printf(" Ukuran %s tidak tersedia!\n\n", minuman.size);
         }
     }
-    else
+    check = 0;
+    while (check == 0)
     {
-        printf(" Ukuran %s tidak tersedia!\n\n", minuman.size);
-        input();
-    }
-
-    //Input penyajian minuman:
-    printf(" Masukkan penyajian minuman (Panas, Hangat, Dingin): ");
-    scanf("\n");
-    fgets(minuman.penyajian, 10, stdin);
-    strtok(minuman.penyajian, "\n");
-
-    //Validasi penyajian minuman:
-    for (int i = 0; i < 10; i++)
-    {
-        minuman.penyajian[i] = toupper(minuman.penyajian[i]);
-    }
-    if (    strcmp(minuman.penyajian, "PANAS") == 0
-        ||  strcmp(minuman.penyajian, "DINGIN") == 0
-        ||  strcmp(minuman.penyajian, "HANGAT") == 0  )
-    {
-        for (int i = 1; i < 10; i++)
+        //Input penyajian minuman:
+        printf(" Masukkan penyajian minuman (Panas, Hangat, Dingin): ");
+        scanf("\n");
+        fgets(minuman.penyajian, 10, stdin);
+        strtok(minuman.penyajian, "\n");
+        for (int i = 0; i < 10; i++)
         {
-            minuman.penyajian[i] = tolower(minuman.penyajian[i]);
+            minuman.penyajian[i] = toupper(minuman.penyajian[i]);
         }
-    }
-    else
-    {
-        printf(" Penyajian %s tidak tersedia!\n\n", minuman.penyajian);
-        input();
+        
+        //Validasi penyajian minuman:
+        if (    strcmp(minuman.penyajian, "PANAS") == 0
+                ||  strcmp(minuman.penyajian, "DINGIN") == 0
+                ||  strcmp(minuman.penyajian, "HANGAT") == 0  )
+        {
+            for (int i = 1; i < 10; i++)
+            {
+                minuman.penyajian[i] = tolower(minuman.penyajian[i]);
+                check = 1;
+            }
+        }
+        else
+        {
+            printf(" Penyajian %s tidak tersedia!\n\n", minuman.penyajian);
+        }
     }
 
     //Penghitungan harga minuman:
     minuman.harga = (strlen(minuman.size) * strlen(minuman.penyajian) * strlen(minuman.nama) * 100);
 
     //Konfirmasi:
-    printf(" Detail pembelian:\n \tNama Minuman: %s\n \tSize: %s\n \tPenyajian: %s\n \tHarga: %i\n", 
+    printf(" Detail pembelian:\n \tNama Minuman: %s\n \tSize: %s\n \tPenyajian: %s\n \tHarga: %i\n",
              minuman.nama, minuman.size, minuman.penyajian, minuman.harga);
     char val;
     for (;;)
