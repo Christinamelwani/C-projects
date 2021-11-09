@@ -4,7 +4,7 @@
 #include <string.h>
 
 void up(int n);
-void down (int n);
+void down(int n);
 
 int main(void)
 {
