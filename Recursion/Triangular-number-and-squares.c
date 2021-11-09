@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 int square(int n);
 int triangular(int n);
@@ -7,27 +8,29 @@ int main (void)
     char buffer[20];
     int select = 0;
     int n = 0;
-    printf("Welcome!This is a static variables demo.\n");
+    printf("Welcome!\nThis is a static variables demo.\n");
     for(;;)
     {
         while (select < 1 || select > 2)
         {
-            printf("Please select what you would like to calculate:\n\t1.n'th triangular number\n\t2.n to the power of 2\n\t");
+            printf("Please select what you would like to calculate:\n\t1.n'th triangular number\n\t2.n squared\n\t");
             fgets(buffer,20,stdin);
             select = atoi(buffer);
             if (select == 1)
             {
-                printf(" Find the n'th triangular number:\n n = ");
+                printf(" Find the n'th triangular number:\n\tn = ");
                 fgets(buffer,20,stdin);
                 n = atoi(buffer);
-                printf(" Answer: %d\n\n", triangular(n));
+                printf(" Answer: %d\n Press any key to continue.\n ", triangular(n));
+                fgets(buffer, 20, stdin);
             }
             else if (select == 2)
             {
                 printf(" Enter a number to be squared: ");
                 fgets(buffer,20,stdin);
                 n = atoi(buffer);
-                printf(" Answer: %d\n\n", square(n));
+                printf(" Answer: %d\n Press any key to continue.\n", square(n));
+                fgets(buffer, 20, stdin);
             }
         }
         n, select = 0;
