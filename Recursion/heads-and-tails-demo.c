@@ -8,23 +8,34 @@ void down (int n);
 
 int main(void)
 {
-    int x = 0;
-    char choose[20];
-    printf("Countdown start: ");
-    scanf("%d", &x);
-    printf("Count up (heads recursion) or down (tails recursion)?\n");
-    scanf("%s", choose);
-    for (int i = 0, n = strlen(choose); i <= n; i++)
+    for (;;)
     {
-        choose[i] = toupper(choose[i]);
-    }
-    if (strcmp("UP", choose) == 0 || strcmp("HEADS", choose) == 0)
-    {
-        up(x);
-    }
-    if (strcmp("DOWN", choose) == 0|| strcmp("TAILS", choose) == 0)
-    {
-        down(x);
+        int x = 0;
+        char buffer[20];
+        while (x == 0)
+        {
+            printf("Press e to exit.\nCount from/until: ");
+            scanf("%s", buffer);
+            if (buffer[0] == 'e' || buffer[0] == 'E')
+            {
+             return 0;
+            }
+            x = atoi(buffer);
+        }
+        printf("Count up or down?\n");
+        scanf("%s", buffer);
+        for (int i = 0, n = strlen(buffer); i <= n; i++)
+        {
+            buffer[i] = toupper(buffer[i]);
+        }
+        if (strcmp("UP", buffer) == 0)
+        {
+            up(x);
+        }
+        if (strcmp("DOWN", buffer) == 0)
+        {
+            down(x);
+        }
     }
     return 0;
 }
@@ -38,7 +49,7 @@ void up(int n)
     }
     else
     {
-        printf("done!\n");
+        printf("Start:\n");
     }
 }
 
@@ -46,7 +57,7 @@ void down(int n)
 {
     if (n > 0)
     {
-        printf("%d\n", n);
+        printf("%d...\n", n);
         down(n - 1);
     }
     else
