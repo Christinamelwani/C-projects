@@ -35,6 +35,9 @@ void up(int n)
     {
         up(n - 1);
         printf("%d\n", n);
+    }
+    else
+    {
         printf("done!\n");
     }
 }
