@@ -2,7 +2,7 @@
 #include <stdlib.h>
 
 int square(int n);
-int triangular(int n);
+int sum(int n);
 int main (void)
 {
     char buffer[20];
@@ -13,15 +13,15 @@ int main (void)
     {
         while (select < 1 || select > 2)
         {
-            printf("Please select what you would like to calculate:\n\t1.n'th triangular number\n\t2.n squared\n\t");
+            printf("Please select what you would like to calculate:\n\t1.Sum of N natural numbers.\n\t2.n squared.\n\t");
             fgets(buffer,20,stdin);
             select = atoi(buffer);
             if (select == 1)
             {
-                printf(" Find the n'th triangular number:\n\tn = ");
+                printf(" Calculate the sum of the first natural numbers until:\n\tn = ");
                 fgets(buffer,20,stdin);
                 n = atoi(buffer);
-                printf(" Answer: %d\n Press any key to continue.\n ", triangular(n));
+                printf(" Answer: %d\n Press any key to continue.\n ", sum(n));
                 fgets(buffer, 20, stdin);
             }
             else if (select == 2)
@@ -29,7 +29,7 @@ int main (void)
                 printf(" Enter a number to be squared: ");
                 fgets(buffer,20,stdin);
                 n = atoi(buffer);
-                printf(" Answer: %d\n Press any key to continue.\n", square(n));
+                printf(" Answer: %d\n Press any key to continue.\n ", square(n));
                 fgets(buffer, 20, stdin);
             }
         }
@@ -50,11 +50,11 @@ int square(int n)
 
 }
 
-int triangular(int n)
+int sum(int n)
 {
     if (n > 0)
     {
-        return triangular(n-1) + n;
+        return sum(n-1) + n;
     }
     return 0;
 }
