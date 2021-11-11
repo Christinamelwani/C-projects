@@ -29,7 +29,7 @@ int main(void)
         printf("%.2lf ", array[i]);
     }
     printf("\n");
-    return;
+    return 0;
 }
 
 void insertion(double *array, int size)
