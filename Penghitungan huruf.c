@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+
 void assign(int c, char kalimat[], int huruf[]);
 int hitung (int huruf[]);
 void print (int huruf[]);
