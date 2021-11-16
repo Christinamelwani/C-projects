@@ -5,7 +5,6 @@ double GetUserInput (void);
 double *GetArray (int ArraySize);
 void MergeSort(int start, int end, double array[], int limit);
 void merge(int start, int mid, int end, double array[], int limit);
-void swap (double *i, double *j);
 void Print (double *arr, int size);
 
 int main (void)
@@ -123,16 +122,10 @@ void merge(int start, int mid, int end, double array[], int limit)
         array[i] = temp[i - start];
     }
 }
-void swap (double *i, double *j)
-{
-  double temp = *i;
-  *i = *j;
-  *j = temp;
-}
-
 
 void Print (double *arr, int size)
 {
+//Displays array elements to 2 decimal places
   for (int i = 0; i < size; i++)
     {
       printf ("%.2lf ", arr[i]);
