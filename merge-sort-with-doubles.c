@@ -12,48 +12,54 @@ int main (void)
 {
     for (;;)
     {
-        //Take input from user in the form of an array of doubles:
-        printf("How many numbers would you like to sort?\n\t(press 'e' and then enter to exit)\n");
-        int NumberOfDoubles = GetUserInput ();
+        printf("How many numbers would you like to sort?\n");
+        fflush(stdin);
+        int NumberOfDoubles = GetUserInput();
         if (NumberOfDoubles == 99999999)
             break;
         double *arr = GetArray (NumberOfDoubles);
 
-        //Print the unsorted array:
         printf ("\nUnsorted Array: \n ");
         Print (arr, NumberOfDoubles);
 
-        //Sort the array:
         MergeSort(0, NumberOfDoubles - 1, arr, NumberOfDoubles);
 
-        //Print the sorted array:
         printf("\n\nSorted Array:\n ");
         Print(arr, NumberOfDoubles);
-        printf("\n\n");
+        char cont = 0;
+        do
+        {
+            printf("\n\n");
+            printf("Continue?\n Yes(press y)\n No(press n)\n ");
+            scanf("%c", &cont);
+            if (cont == 'n')
+                return 0;
+            else if (cont == 'y')
+            {
+                printf("\n");
+                break;
+            }
+            fflush(stdin);
+        }
+        while (cont != 'n' && cont!= 'y');
     }
   return 0;
 }
 
 double GetUserInput (void)
 {
-  //Take input from user in the form of a number:
   double Input = 0;
-  while (Input == 0)
+    while (Input == 0)
     {
-      char buffer[20];
-      fgets (buffer, 20, stdin);
-        if (buffer[0] != 'e')
+        char buffer[20];
+        fgets (buffer, 20, stdin);
+        Input = atof (buffer);
+        if (Input == 0)
         {
-            Input = atof (buffer);
-            if (Input == 0)
-            {
-                printf ("Invalid input! Try again:\n");
-            }
+            printf ("Invalid input! Try again:\n");
         }
-        else
-            return 99999999;
     }
-  return Input;
+    return Input;
 }
 
 double * GetArray (int ArraySize)
