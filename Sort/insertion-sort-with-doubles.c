@@ -27,6 +27,7 @@ int main(void)
 
         printf("%.2lf ", array[i]);
     }
+    free(array);
     printf("\n");
     return 0;
 }
