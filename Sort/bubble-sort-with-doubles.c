@@ -28,6 +28,7 @@ int main(void)
 
         printf("%.2lf ", array[i]);
     }
+    free(array);
     return;
 }
 
