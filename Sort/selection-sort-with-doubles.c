@@ -23,6 +23,7 @@ int main (void)
   //Print the sorted array:
   printf ("\nSorted Array:\n");
   Print (arr, NumberOfDoubles);
+  free(arr);
   return 0;
 }
 
