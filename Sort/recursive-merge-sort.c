@@ -32,6 +32,7 @@ int main(void)
             printf("%d ", array_a[i]);
         }
         printf("\n\nInversion count: not implemented");
+        free(array_a);
         char check = ' ';
         while (check != 'y' && check != 'n')
         {
