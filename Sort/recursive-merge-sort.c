@@ -1,9 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
+
 int size = 0;
+
 int get_int(char * prompt);
 void recursive_merge_sort(int * list, int low, int high);
 void merge(int *list, int low, int mid, int high);
+
 int main(void)
 {
     //Main infinite loop
