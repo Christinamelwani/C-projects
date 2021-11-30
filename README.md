@@ -8,5 +8,7 @@ All code tested on the following compilers:
    Offline:
    https://www.codeblocks.org/
    
-   Mobile app:
-   https://play.google.com/store/apps/details?id=app.compiler
+Catalogue:
+Recursion: demos on how to properly implement recursion in C
+Tugas: Jawaban Tugas Binus Online Learning (teknik informatika).
+Sort: code for various sorting techniques.
