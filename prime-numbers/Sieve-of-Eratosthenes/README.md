@@ -1,4 +1,6 @@
-Sieve of eratosthenes, improved algorithm to find prime numbers. References:
+# Sieve of eratosthenes
+
+Improved algorithm to find prime numbers. References:
 
 https://www.youtube.com/watch?v=eKp56OLhoQs (Most of the code is directly lifted from this video)
 
