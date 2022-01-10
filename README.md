@@ -8,10 +8,12 @@ All code tested on the following compilers:
    Offline:
    https://www.codeblocks.org/
    
-Catalogue:
+# Catalogue:
 
 Recursion: demos on how to properly implement recursion in C
 
 Tugas: Jawaban Tugas Binus Online Learning (teknik informatika).
 
 Sort: code for various sorting techniques.
+
+Prime numbers: Programs to display prime numbers
